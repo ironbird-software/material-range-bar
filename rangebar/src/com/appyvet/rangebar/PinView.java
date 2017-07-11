@@ -20,6 +20,7 @@ import android.graphics.ColorFilter;
 import android.graphics.LightingColorFilter;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.util.TypedValue;
@@ -160,6 +161,7 @@ class PinView extends View {
         mTextPaint.setColor(textColor);
         mTextPaint.setAntiAlias(true);
         mTextPaint.setTextSize(textSize);
+        mTextPaint.setTypeface(Typeface.DEFAULT_BOLD);
         // Creates the paint and sets the Paint values
         mCirclePaint = new Paint();
         mCirclePaint.setColor(circleColor);
