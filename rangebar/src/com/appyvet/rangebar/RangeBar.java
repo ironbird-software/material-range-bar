@@ -339,7 +339,15 @@ public class RangeBar extends View {
         } else if (measureHeightMode == MeasureSpec.EXACTLY) {
             height = measureHeight;
         } else {
-            height = mDefaultHeight;
+
+            float mTickHeight = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+                    mTickHeightDP,
+                    getContext().getResources().getDisplayMetrics());
+
+            double barSize = Math.max(mTickHeight * 2, (mCircleSize + mCircleBoundarySize) * 2);
+            barSize = Math.max(barSize, mBarWeight);
+            height = (int) (mBarPaddingBottom + mPinPadding +
+                    (mExpandedPinRadius * (1.0 + Math.sqrt(2))) + barSize) ;
         }
 
         setMeasuredDimension(width, height);
@@ -1098,8 +1106,7 @@ public class RangeBar extends View {
                 Log.e(TAG, "tickCount less than 2; invalid tickCount. XML input ignored.");
             }
 
-            mTickHeightDP = ta
-                    .getDimension(R.styleable.RangeBar_tickHeight, DEFAULT_TICK_HEIGHT_DP);
+            mTickHeightDP = ta.getDimension(R.styleable.RangeBar_tickHeight, DEFAULT_TICK_HEIGHT_DP);
             mBarWeight = ta.getDimension(R.styleable.RangeBar_barWeight, DEFAULT_BAR_WEIGHT_PX);
             mBarColor = ta.getColor(R.styleable.RangeBar_rangeBarColor, DEFAULT_BAR_COLOR);
             mTextColor = ta.getColor(R.styleable.RangeBar_textColor, DEFAULT_TEXT_COLOR);
@@ -1107,8 +1114,7 @@ public class RangeBar extends View {
             mActiveBarColor = mBarColor;
             mCircleSize = ta.getDimension(R.styleable.RangeBar_selectorSize,
                     TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, DEFAULT_CIRCLE_SIZE_DP,
-                            getResources().getDisplayMetrics())
-            );
+                            getResources().getDisplayMetrics()));
 
 
             mCircleColor = ta.getColor(R.styleable.RangeBar_selectorColor,
